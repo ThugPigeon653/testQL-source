@@ -3,53 +3,57 @@
             "postgres":{
                 "host-os": "ubuntu-latest",
                 "jobs":{
-                    "plpgsql-test": {
-                    "runs-on": "ubuntu-latest",
-                    "steps": [
-                            {
-                            "name": "Set Environment Variables (TSQL)",
-                            "run": "echo \"SQL_SERVER=localhost\" >> $GITHUB_ENV\necho \"SQL_UID=postgres\" >> $GITHUB_ENV\necho \"SQL_PWD=mysecretpassword\" >> $GITHUB_ENV"
-                            },
-                            {
-                            "name": "Checkout source",
-                            "uses": "actions/checkout@v2"
-                            },
-                            {
-                            "name": "Run postgres container",
-                            "run": "docker run --name pgtestdb -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres\nsleep 20"
-                            },
-                            {
-                            "name": "Setup py installation",
-                            "uses": "actions/setup-python@v2",
-                            "with": {
-                                "python-version": "3.x"
-                            }
-                            },
-                            {
-                            "name": "Install dependencies",
-                            "run": "python -m pip install --upgrade pip\npip install psycopg2-binary"
-                            },
-                            {
-                            "name": "PLpgSQL tests",
-                            "run": "python -m unittest test/test_plpgsql.py"
-                            }
-                        ],
-                    "db-config":[
-                        "    @classmethod",
-                        "    def setUpClass(cls):",
-                        "        sql_server = os.getenv('SQL_SERVER')",
-                        "        sql_uid = os.getenv('SQL_UID')",
-                        "        sql_pwd = os.getenv('SQL_PWD')",
-                        "        cls.connection = psycopg2.connect(",
-                        "           host=sql_server",
-                        "           port=5432",
-                        "           database=sql_uid",
-                        "           user=sql_uid",
-                        "           password=sql_pwd",
-                        "        )",
-                        "        cls.cursor = cls.connection.cursor()"]
-                }
-            }
+                    "test": {
+                        "runs-on": "ubuntu-latest",
+                        "steps": [
+                                {
+                                "name": "Set Environment Variables (postgres)",
+                                "run": "echo \"SQL_SERVER=localhost\" >> $GITHUB_ENV\necho \"SQL_UID=postgres\" >> $GITHUB_ENV\necho \"SQL_PWD=mysecretpassword\" >> $GITHUB_ENV"
+                                },
+                                {
+                                "name": "Checkout source",
+                                "uses": "actions/checkout@v2"
+                                },
+                                {
+                                "name": "Run postgres container",
+                                "run": "docker run --name pgtestdb -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres\nsleep 20"
+                                },
+                                {
+                                "name": "Setup py installation",
+                                "uses": "actions/setup-python@v2",
+                                "with": {
+                                    "python-version": "3.x"
+                                }
+                                },
+                                {
+                                "name": "Install dependencies",
+                                "run": "python -m pip install --upgrade pip\npip install psycopg2-binary"
+                                },
+                                {
+                                "name": "PLpgSQL tests",
+                                "run": "python -m unittest test/test_testQL_postgres.py"
+                                }
+                        ]
+                    }
+                },
+                "db-config":[
+                    "    @classmethod",
+                    "    def setUpClass(cls):",
+                    "        sql_server = os.getenv('SQL_SERVER')",
+                    "        sql_uid = os.getenv('SQL_UID')",
+                    "        sql_pwd = os.getenv('SQL_PWD')",
+                    "        cls.connection = psycopg2.connect(",
+                    "           host=sql_server,",
+                    "           port=5432,",
+                    "           database=sql_uid,",
+                    "           user=sql_uid,",
+                    "           password=sql_pwd,",
+                    "        )",
+                    "        cls.cursor = cls.connection.cursor()"
+                ],
+                "deps":[
+                    "import psycopg2"
+                ]
         },
             "tsql":{
                 "host-os": "ubuntu-latest",
@@ -90,52 +94,58 @@
                         },
                         {
                         "name": "TSQL Tests",
-                        "run": "python -m unittest test/test_tsql.py"
+                        "run": "python -m unittest test/test_testQL_tsql.py"
                         },
                         {
                         "name": "Stop ms-sql container",
                         "run": "CONTAINER_ID=$(docker ps -q --filter ancestor=mcr.microsoft.com/mssql/server:2022-latest)\nif [ ! -z \"$CONTAINER_ID\" ]; then\ndocker stop $CONTAINER_ID\nfi"
                         }
-                    ],
-                    "db-config":[
-                        "    @classmethod",
-                        "    def setUpClass(cls):",
-                        "        sql_server = os.getenv('SQL_SERVER')",
-                        "        sql_database = os.getenv('SQL_DATABASE')",
-                        "        sql_uid = os.getenv('SQL_UID')",
-                        "        sql_pwd = os.getenv('SQL_PWD')",
-                        "        cls.connection = pyodbc.connect(",
-                        "            f'Driver={{ODBC Driver 17 for SQL Server}};'",
-                        "            f'Server={sql_server};'",
-                        "            f'UID={sql_uid};'",
-                        "            f'PWD={sql_pwd};'",
-                        "            f'Database={sql_database};'",
-                        "            timeout=30",
-                        "        )",
-                        "        cls.cursor = cls.connection.cursor()"]
+                    ]
                 }
-              }
+                },
+                "db-config":[
+                    "    @classmethod",
+                    "    def setUpClass(cls):",
+                    "        sql_server = os.getenv('SQL_SERVER')",
+                    "        sql_database = os.getenv('SQL_DATABASE')",
+                    "        sql_uid = os.getenv('SQL_UID')",
+                    "        sql_pwd = os.getenv('SQL_PWD')",
+                    "        cls.connection = pyodbc.connect(",
+                    "            f'Driver={{ODBC Driver 17 for SQL Server}};'",
+                    "            f'Server={sql_server};'",
+                    "            f'UID={sql_uid};'",
+                    "            f'PWD={sql_pwd};'",
+                    "            f'Database={sql_database};',",
+                    "            timeout=30",
+                    "        )",
+                    "        cls.cursor = cls.connection.cursor()"
+                ],
+                "deps":[
+                    "import pyodbc"
+                ]
             }
-        },
-    "base-workflow":{
+    },
+    "base-workflow": {
         "name": "testQL Tests",
         "on": {
-          "push": {
-            "jobs": {}
-          }
-        }
-      },
+            "push": {
+                "branches": ["*"]
+            }
+        },
+        "jobs": {}
+    },
     "py-template":{
-        "top":[
+        "imports":[
             "from subprocess import Popen, PIPE",
             "import unittest",
             "import os",
-            "import sys",
-            "import pyodbc",
+            "import sys"
+        ],
+        "top":[
             "sys.path.insert(0, '.')",
             "class testSQL(unittest.TestCase):"
         ],
-        "bottom":[
+        "bottom": [
             "    @classmethod",
             "    def tearDownClass(cls):",
             "       cls.cursor.close()",
@@ -153,7 +163,9 @@
             "           return False",
             " ",
             "    def test_tsql(self):",
-            "       pass"
+            "       pass",
+            "       # ADD YOUR UNIT TESTS HERE. i.e.",
+            "       # self.assertTrue(self.execute_sql_file('Create.sql', self.cursor, self.connection))"
         ]
     }
           
