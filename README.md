@@ -50,7 +50,7 @@ Linux:
 
 ## Commands <a name = "commands"></a>
 
-Note: [a,b|c] indicates that 'a' and 'b' are equivelant, while 'a' and 'c' are alternative choices.
+- Note: [a,b|c] indicates that 'a' and 'b' are equivelant, while 'a' and 'c' are alternative choices.
 ---------------------------------------------------------------------------------
 Initialize:
 testql init --engine [postgres, pg, postgresql | tsql]
