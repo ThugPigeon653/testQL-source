@@ -53,7 +53,7 @@ Linux:
 - Note: [a,b|c] indicates that 'a' and 'b' are equivelant, while 'a' and 'c' are alternative choices.
 ---------------------------------------------------------------------------------
 Initialize:
-testql init --engine [postgres, pg, postgresql | tsql]
+testql init --engine postgres, pg, postgresql | tsql]
 
 - This command sets up unit tests and infrastructure as code, using your chosen database engine
 ---------------------------------------------------------------------------------
