@@ -3,7 +3,7 @@ name: Check Branch and Author
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   check-branch-and-author:
@@ -12,12 +12,7 @@ jobs:
     steps:
     - name: Check Branch and Author
       run: |
-        if [ "${GITHUB_REF##*/}" != "main" ]; then
-          echo "Push to branches other than main is not allowed."
-          exit 1
-        fi
-
-        if [ "${GITHUB_ACTOR}" != "ThugPigeon653" ]; then
-          echo "Push by authors other than ThugPigeon653 is not allowed."
+        if [ "${GITHUB_REF}" = "refs/heads/main" ] && [ "${GITHUB_ACTOR}" != "ThugPigeon653" ]; then
+          echo "Direct push to main is not allowed. Please use a pull request."
           exit 1
         fi
