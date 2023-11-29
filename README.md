@@ -26,6 +26,7 @@
 - This tool provides a simple solution, for unit testing SQL files before they reach your main repository. By using TestQL, you can add SQL unit tests to your repository, without actually having to provision infrastructure or write any code. 
 - TestQL is a CLI tool that generates unit tests and workflows, which test SQL at the source-code level. The tool acheives this by generating all code required to test your SQL against a GitHub managed database - including provisioning of test infrastructure, dependancy management, and database connection. 
 - Unit tests are generated on-demand, and run automatically every time a 'push' is made to the repository. This makes working on SQL repositories highly agile, because unit tests are being run for every commit.
+- See example implementation at https://github.com/ThugPigeon653/sql-mulitilanguage
 
 
 ## Installation <a name = "installation"></a>
