@@ -33,13 +33,15 @@
 
 Windows:
 - NOTE: A second installer will be provided soon, which does not require a python installation to run.
-- Make sure you have a valid installtion of Python
+- Make sure you have a valid installation of Python
 - Clone the repository: https://github.com/ThugPigeon653/testQL-source.git
 - Extract files: Extract files to any location you wish - the location will not affect the tools functionality
 - Build and install: Run 'Build.bat' in the root of your newly extracted directory as admin
 
 Linux:
-- Coming soon... 
+- Clone the repository: https://github.com/ThugPigeon653/testQL-source.git
+- In the root of the cloned repo: chmod +x LinuxBuild.sh
+- Run LinuxBuild.sh: ./LinuxBuild.sh
 
 
 ## Getting started <a name = "getting_started"></a>
