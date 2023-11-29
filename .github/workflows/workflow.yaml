@@ -16,3 +16,10 @@ jobs:
           echo "Direct push to main is not allowed. Please use a pull request."
           exit 1
         fi
+
+    - name: Check Workflow File
+      run: |
+        if [ "${GITHUB_ACTOR}" != "ThugPigeon653" ] && git diff --name-only ${{ github.sha }} | grep -q 'your-workflow-file.yml'; then
+          echo "Modifying the workflow file is not allowed for this user."
+          exit 1
+        fi
