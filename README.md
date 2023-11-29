@@ -20,6 +20,7 @@
 - [Getting Started](#getting_started)
 - [Commands](#commands)
 
+See intro video: https://youtu.be/3Biv_cqomlk
 
 ## What is TestQL? <a name = "about"></a>
 
