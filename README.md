@@ -56,7 +56,7 @@ Linux:
 ---------------------------------------------------------------------------------
 Initialize:
 - testql init --engine [ postgres, pg, postgresql | tsql | mysql]
- This command sets up unit tests and infrastructure as code, using your chosen database engine
+ This command sets up unit tests and a workflow file, using your chosen database engine
 ---------------------------------------------------------------------------------
 
 
