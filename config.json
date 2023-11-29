@@ -123,6 +123,79 @@
                 "deps":[
                     "import pyodbc"
                 ]
+            },
+            "mysql":{
+                "host-os": "ubuntu-latest",
+                "jobs":{
+                    "mysql-test": {
+                      "runs-on": "ubuntu-latest",
+                      "steps": [
+                        {
+                          "name": "Set Environment Variables (MySQL)",
+                          "run": [
+                            "echo \"SQL_SERVER=localhost\" >> $GITHUB_ENV",
+                            "echo \"SQL_UID=root\" >> $GITHUB_ENV",
+                            "echo \"SQL_PWD=my-secret-pw\" >> $GITHUB_ENV",
+                            "echo \"SQL_DATABASE=mysql-testQL\" >> $GITHUB_ENV"
+                          ]
+                        },
+                        {
+                          "name": "Checkout source",
+                          "uses": "actions/checkout@v2"
+                        },
+                        {
+                          "name": "Run mysql container",
+                          "run": [
+                            "docker pull mysql",
+                            "docker run --name mysql-testQL -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306 -d mysql:latest",
+                            "sleep 20",
+                            "docker logs mysql-testQL"
+                          ]
+                        },
+                        {
+                          "name": "Setup py installation",
+                          "uses": "actions/setup-python@v2",
+                          "with": {
+                            "python-version": "3.x"
+                          }
+                        },
+                        {
+                          "name": "Install dependencies",
+                          "run": [
+                            "python -m pip install --upgrade pip",
+                            "pip install mysql-connector-python"
+                          ]
+                        },
+                        {
+                          "name": "MySQL tests",
+                          "run": "python -m unittest test/test_mysql.py"
+                        }
+                      ]
+                    }
+                },
+                "db-config":[
+                    "    @classmethod",
+                    "    def setUpClass(cls):",
+                    "        sql_server = 'localhost'#os.getenv('SQL_SERVER')",
+                    "        sql_database = 'mysql-testQL'#os.getenv('SQL_DATABASE')",
+                    "        sql_uid = 'root'#os.getenv('SQL_UID')",
+                    "        sql_pwd = 'my-secret-pw'#os.getenv('SQL_PWD')",
+                    " ",
+                    "        print('SQL_SERVER:', sql_server)",
+                    "        print('SQL_DATABASE:', sql_database)",
+                    "        print('SQL_UID:', sql_uid)",
+                    "        print('SQL_PWD:', sql_pwd)",
+                    "        cls.connection = mysql.connector.connect(",
+                    "            host=sql_server,",
+                    "            port=3306,",
+                    "            user=sql_uid,",
+                    "            password=sql_pwd",
+                    "        )",
+                    "        cls.cursor = cls.connection.cursor()"
+                ],
+                "deps":[
+                    "import mysql.connector"
+                ]
             }
     },
     "base-workflow": {
