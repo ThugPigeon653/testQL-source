@@ -28,7 +28,7 @@
 - Unit tests are generated on-demand, and run automatically every time a 'push' is made to the repository. This makes working on SQL repositories highly agile, because unit tests are being run for every commit.
 
 
-## Installation? <a name = "installation"></a>
+## Installation <a name = "installation"></a>
 
 Windows:
 - NOTE: A second installer will be provided soon, which does not require a python installation to run.
@@ -41,19 +41,19 @@ Linux:
 - Coming soon... 
 
 
-## Getting started? <a name = "getting_started"></a>
+## Getting started <a name = "getting_started"></a>
 
 - Create the repo: Initialize or clone a repository to a local destination of your choosing. This is the repository which does/will contain your SQL files.
 - Open a terminal in the root folder of your cloned repository 
 - Run the init command: 'testql init'. By default, this command will assume you are using postgres
 
 
-## Commands? <a name = "commands"></a>
+## Commands <a name = "commands"></a>
 
-Note: [a,b|c] indicates that 'a' and 'b' are equivelant, while 'a' and 'c' are alternative choices.
+- Note: [a,b|c] indicates that 'a' and 'b' are equivelant, while 'a' and 'c' are alternative choices.
 ---------------------------------------------------------------------------------
 Initialize:
-testql init --engine [postgres, pg, postgresql | tsql]
+testql init --engine [ postgres, pg, postgresql | tsql ]
 
-This command sets up unit tests and infrastructure as code, using your chosen database engine
+- This command sets up unit tests and infrastructure as code, using your chosen database engine
 ---------------------------------------------------------------------------------
