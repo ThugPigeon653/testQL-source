@@ -20,6 +20,7 @@
 - [Getting Started](#getting_started)
 - [Commands](#commands)
 
+See intro video: https://youtu.be/3Biv_cqomlk
 
 ## What is TestQL? <a name = "about"></a>
 
@@ -57,6 +58,17 @@ Linux:
 ---------------------------------------------------------------------------------
 Initialize:
 - testql init --engine [ postgres, pg, postgresql | tsql | mysql]
-
-This command sets up unit tests and infrastructure as code, using your chosen database engine
+ This command sets up unit tests and a workflow file, using your chosen database engine
 ---------------------------------------------------------------------------------
+
+
+## Contributing <a name = "contribute"></a>
+
+Everyone is welcome to contribute at any time. I have implemented a few rules on the repository, but otherwise it is really straightforward. It is recommended to have some experience or knowledge of GitHub Actions before jumping in (and probably Python)
+
+- Clone this repo to your desired install destination. Currently, it is installed and developed in the same location.
+- Checkout a new branch (git checkout -b <branch-name>). It can be any branch, just not 'main'.
+- PR: Once you have pushed some changes, open a Pull Request - thats it!
+
+Note: Don't alter the workflow file, or push to main branch. Either of these things will automatically reject all changes.
+
