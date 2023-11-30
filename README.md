@@ -1,5 +1,5 @@
 <p align="center">
- <img src="testQL-log.png" alt="TestQL - SQL unit testing made easy"></a>
+ <img src="https://raw.githubusercontent.com/thugpigeon653/testQL-source/main/testQL-log.png" alt="TestQL - SQL unit testing made easy"></a>
 </p>
 
 <h3 align="center">TestQL - SQL unit testing made easy</h3>
