@@ -1,5 +1,5 @@
 <p align="center">
- <img src="https://images.unsplash.com/photo-1576444356170-66073046b1bc?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="TestQL - SQL unit testing made easy"></a>
+ <img src="https://github.com/ThugPigeon653/testQL-source/blob/0ed0945349c10f06f79b6d5ecdcbd45d560081ca/testQL-logo.PNG" alt="TestQL - SQL unit testing made easy"></a>
 </p>
 
 <h3 align="center">TestQL - SQL unit testing made easy</h3>
